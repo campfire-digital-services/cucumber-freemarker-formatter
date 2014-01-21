@@ -72,10 +72,6 @@
         </notifiers>
     </ciManagement>
 
-    <!-- TODO extract bootstrap from webjars to reports-->
-    <!-- TODO extract bootswatch from webjars to reports -->
-    <!-- TODO extract jquery from webjars to reports -->
-
     <dependencyManagement>
         <dependencies>
             <dependency>
