@@ -19,13 +19,13 @@ public class Base64Decode implements TemplateMethodModelEx {
 
         final Object argument = arguments.get(0);
 
-        return newStringUtf8(
-                decodeBase64(
-                        argument != null
-                        ? argument.toString()
-                        : null
-                )
-        );
+        return argument == null
+               ? null
+               : newStringUtf8(
+                       decodeBase64(
+                               argument.toString()
+                       )
+               );
     }
 
 }
