@@ -7,15 +7,17 @@ import gherkin.deps.com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FreemarkerTemplateRenderer {
 
-    public String render(final String json) {
+    public String render(final String json,
+                         final String templateName) {
 
         final Map<String, Object> model = buildModel(json);
-        final Template template = loadTemplate();
+        final Template template = loadTemplate(templateName);
 
         return renderTemplate(template, model);
     }
@@ -25,8 +27,17 @@ public class FreemarkerTemplateRenderer {
 
         final StringWriter stringWriter = new StringWriter();
 
+        renderTemplateToWriter(template, model, stringWriter);
+
+        return stringWriter.toString();
+    }
+
+    protected void renderTemplateToWriter(final Template template,
+                                          final Map<String, Object> model,
+                                          final Writer writer) {
+
         try {
-            template.process(model, stringWriter);
+            template.process(model, writer);
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -34,14 +45,12 @@ public class FreemarkerTemplateRenderer {
         catch (TemplateException e) {
             throw new RuntimeException(e);
         }
-
-        return stringWriter.toString();
     }
 
-    protected Template loadTemplate() {
+    protected Template loadTemplate(final String template) {
 
         try {
-            return buildConfiguration().getTemplate("cucumber.ftl");
+            return buildConfiguration().getTemplate(template);
         }
         catch (IOException e) {
             throw new RuntimeException(e);

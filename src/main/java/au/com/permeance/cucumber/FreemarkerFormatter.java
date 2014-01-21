@@ -187,7 +187,7 @@ public class FreemarkerFormatter implements Formatter, Reporter {
         jsonFormatter.close();
 
         final File file = new File(baseDir, "index.html");
-        final String result = freemarkerTemplateRenderer.render(stringWriter.toString());
+        final String result = freemarkerTemplateRenderer.render(stringWriter.toString(), "cucumber.ftl");
 
         try {
             FileUtils.writeStringToFile(file, result);

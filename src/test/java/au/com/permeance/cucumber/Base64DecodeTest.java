@@ -6,10 +6,7 @@ import org.junit.Test;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class Base64DecodeTest {
 
@@ -26,7 +23,7 @@ public class Base64DecodeTest {
 
         final String result = subject.exec(singletonList("SGkgTWFydGluIQ=="));
 
-        assertThat(result, is(equalTo("Hi Martin!")));
+        assertThat(result).isEqualTo("Hi Martin!");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -46,7 +43,7 @@ public class Base64DecodeTest {
 
         final String result = subject.exec(singletonList(null));
 
-        assertThat(result, is(nullValue()));
+        assertThat(result).isNull();
     }
 
 }
