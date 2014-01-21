@@ -46,13 +46,12 @@ public class FreemarkerFormatter implements Formatter, Reporter {
 
     public FreemarkerFormatter(final File file) {
 
-        if (file.exists()) {
-            if (!file.isDirectory()) {
-                throw new CucumberException("Specified file [" + file + "] is not a directory");
-            }
+        if (file.exists() && !file.isDirectory()) {
+            throw new CucumberException("Specified file [" + file + "] exists but is not a directory");
         }
-        else if (!file.mkdir()) {
-            throw new CucumberException("Specified file [" + file + "] does not exist but could not be created");
+
+        if (!file.exists() && !file.mkdir()) {
+            throw new CucumberException("Specified file [" + file + "] does not exist but could not be created as a directory");
         }
 
         baseDir = file;
